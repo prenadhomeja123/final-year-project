@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intelligent Disease Prediction</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: url('https://images.newscientist.com/wp-content/uploads/2018/07/02105956/f0096800-human_heart_attack_artwork-spl.jpg') center/cover fixed no-repeat;
+      color: white;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+      flex-wrap: wrap;
+    }
+
+    header h2 {
+      margin: 0;
+      flex: 1;
+      text-align: left;
+    }
+
+    nav {
+      display: flex;
+      flex: 1;
+      justify-content: space-around;
+      background: #333;
+      padding: 10px;
+      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      margin: 5px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: auto;
+    }
+
+    form {
+      width: 90%;
+      max-width: 500px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 15px;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .Header_Text {
+      margin: 0px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+      }
+
+      .Header_Text {
+        margin: 20px;
+      }
+
+      header h2 {
+        text-align: center;
+      }
+
+      nav {
+        justify-content: center;
+      }
+
+      nav a {
+        margin: 5px 10px;
+      }
+
+      form {
+        width: 100%;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h2 class="Header_Text">Intelligent Multiple Disease Prediction</h2>
+    <nav>
+      <a href="/homee">Home</a>
+      <a href="/diabetes">Diabetes</a>
+      <a href="/heart">Heart</a>
+      <a href="/kidney">Kidney</a>
+      <a href="/liver">Liver</a>
+      <a href="/parkinsons">Parkinson</a>
+      <a href="/lung">Lung</a>
+      <a href="/strok">Stroke</a>
+    </nav>
+  </header>
+
+  <h1 style="text-align: center">Heart Attack</h1>
+
+  <section style="display: flex; flex-direction: column; align-items: center;">
+    <form action="{{ url_for('predictheart') }}" method="post">
+      <label for="age">Age:</label>
+      <select id="age" name="age" required>
+        <option value="">Select age</option>
+        <!-- Using a loop to generate options for age -->
+        {% for i in range(1, 121) %}
+        <option value="{{ i }}">{{ i }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="sex">Sex:</label>
+      <select id="sex" name="sex" required>
+        <option value="">Select sex 1 for male and 0 for female</option>
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+
+      <label for="cp">Chest Pain Type (cp):</label>
+      <input type="text" id="cp" name="cp"
+        placeholder="Enter cp, e.g., 1 (typical angina), 2 (atypical angina), 3 (non-anginal pain), or 4 (asymptomatic)"
+        required />
+
+      <label for="trestbps">Resting Blood Pressure (trestbps):</label>
+      <input type="text" id="trestbps" name="trestbps" placeholder="Enter trestbps, e.g., 130" required />
+
+      <label for="chol">Cholesterol (chol):</label>
+      <input type="text" id="chol" name="chol" placeholder="Enter chol, e.g., 240" required />
+
+      <label for="fbs">Fasting Blood Sugar (fbs):</label>
+      <input type="text" id="fbs" name="fbs"
+        placeholder="Enter fbs, e.g., 1 (high blood sugar) or 0 (normal blood sugar)" required />
+
+      <label for="restecg">Resting Electrocardiographic Results (restecg):</label>
+      <input type="text" id="restecg" name="restecg"
+        placeholder="Enter restecg, e.g., 0 (normal), 1 (abnormality), or 2 (probable or definite left ventricular hypertrophy)"
+        required />
+
+      <label for="thalach">Maximum Heart Rate Achieved (thalach):</label>
+      <input type="text" id="thalach" name="thalach" placeholder="Enter thalach, e.g., 170" required />
+
+      <label for="exang">Exercise-Induced Angina (exang):</label>
+      <input type="text" id="exang" name="exang" placeholder="Enter exang, e.g., 1 (yes) or 0 (no)" required />
+
+      <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest (oldpeak):</label>
+      <input type="text" id="oldpeak" name="oldpeak" placeholder="Enter oldpeak, e.g., 1.5" required />
+
+      <label for="slope">Slope of the Peak Exercise ST Segment (slope):</label>
+      <input type="text" id="slope" name="slope"
+        placeholder="Enter slope, e.g., 1 (upsloping), 2 (flat), or 3 (downsloping)" required />
+
+      <label for="ca">Number of Major Vessels (ca):</label>
+      <input type="text" id="ca" name="ca" placeholder="Enter ca, e.g., 0, 1, 2, or 3" required />
+
+      <label for="thal">Thalassemia (thal):</label>
+      <input type="text" id="thal" name="thal"
+        placeholder="Enter thal, e.g., 3 (normal), 6 (fixed defect), or 7 (reversible defect)" required />
+
+      <button type="submit">Predict</button>
+    </form>
+    <h2
+      style="text-align: center; margin-top: 20px; color: white; background-color:black; border: 2px solid #b18d5b; padding: 10px;">
+      {{ prediction_text }}</h2>
+  </section>
+
+  <footer>&copy; 2024 Intelligent Disease Prediction</footer>
+</body>
+
+</html>
